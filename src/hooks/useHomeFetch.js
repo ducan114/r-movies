@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 //API
 import API from '../API';
-//Helpers
-import helper from '../helpers';
 
 const initialState = {
   page: 0,

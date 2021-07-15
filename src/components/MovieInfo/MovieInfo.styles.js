@@ -29,7 +29,6 @@ export const Content = styled.div`
   margin: 0 auto;
 
   > div {
-    box-sizing: border-box;
     flex: 1 1 0px;
   }
 

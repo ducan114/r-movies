@@ -16,7 +16,8 @@ import NoImage from '../images/no_image.jpg';
 const Home = () => {
   const { state, loading, error, setIsLoadingMore, searchTerm, setSearchTerm } =
     useHomeFetch();
-  if (error) return <div>Something went wrong...</div>;
+
+  if (error) return <h1 style={{ color: 'red' }}>Something went wrong...</h1>;
 
   return (
     <>

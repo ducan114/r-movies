@@ -28,5 +28,9 @@ export const Content = styled.div`
 
   a {
     text-decoration: none;
+
+    span:hover {
+      color: teal;
+    }
   }
 `;

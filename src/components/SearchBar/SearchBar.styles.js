@@ -37,4 +37,11 @@ export const Content = styled.div`
     outline: none;
     color: var(--white);
   }
+
+  .fas.fa-times {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+  }
 `;

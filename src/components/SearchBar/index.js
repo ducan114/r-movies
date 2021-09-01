@@ -15,7 +15,7 @@ const SearchBar = ({ setSearchTerm }) => {
     }
 
     const timer = setTimeout(() => {
-      setSearchTerm(state);
+      setSearchTerm(state.trim());
     }, 500);
 
     return () => clearTimeout(timer);
@@ -29,7 +29,7 @@ const SearchBar = ({ setSearchTerm }) => {
           type='text'
           placeholder='Search Movie'
           value={state}
-          onChange={(e) => setState(e.target.value.trim())}
+          onChange={(e) => setState(e.target.value)}
         />
         <i class="fas fa-times" onClick={() => setState('')}></i>
       </Content>

@@ -31,7 +31,7 @@ const SearchBar = ({ setSearchTerm }) => {
           value={state}
           onChange={(e) => setState(e.target.value)}
         />
-        <i class="fas fa-times" onClick={() => setState('')}></i>
+        <i class="fa fa-times" onClick={() => setState('')}></i>
       </Content>
     </Wrapper>
   );

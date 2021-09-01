@@ -38,10 +38,10 @@ export const Content = styled.div`
     color: var(--white);
   }
 
-  .fas.fa-times {
+  .fa.fa-times {
     position: absolute;
     top: 15px;
     right: 15px;
-    width: 30px;
+    font-size: 2rem;
   }
 `;

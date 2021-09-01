@@ -29,20 +29,25 @@ const Home = () => {
         />
       )}
       <SearchBar setSearchTerm={setSearchTerm} />
-      <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
-        {state.results.map((movie) => (
-          <Thumb
-            key={movie.id}
-            clickable
-            image={
-              movie.poster_path
-                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
-                : NoImage
-            }
-            movieId={movie.id}
-          />
-        ))}
-      </Grid>
+      {searchTerm && state.results.length === 0 && (
+        <h1>Not Found</h1>
+      )}
+      {state.results.length === 0 || (
+        <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
+          {state.results.map((movie) => (
+            <Thumb
+              key={movie.id}
+              clickable
+              image={
+                movie.poster_path
+                  ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                  : NoImage
+              }
+              movieId={movie.id}
+            />
+          ))}
+        </Grid>
+      )}
       {state.page < state.total_pages && !loading && (
         <Button text='Load More' callback={() => setIsLoadingMore(true)} />
       )}

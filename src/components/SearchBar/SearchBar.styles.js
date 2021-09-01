@@ -40,8 +40,12 @@ export const Content = styled.div`
 
   .fa.fa-times {
     position: absolute;
-    top: 15px;
+    top: 10px;
     right: 15px;
     font-size: 2rem;
+  }
+
+  .fa.fa-times:hover {
+    filter: brightness(70%);
   }
 `;

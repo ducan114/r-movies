@@ -29,9 +29,9 @@ const SearchBar = ({ setSearchTerm }) => {
           type='text'
           placeholder='Search Movie'
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={e => setState(e.target.value)}
         />
-        <i class="fa fa-times" onClick={() => setState('')}></i>
+        <i className='fa fa-times' onClick={() => setState('')}></i>
       </Content>
     </Wrapper>
   );

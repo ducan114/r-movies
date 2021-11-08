@@ -25,7 +25,7 @@ export const useHomeFetch = () => {
 
       const movies = await API.fetchMovies(searchTerm, page);
 
-      setState((prev) => ({
+      setState(prev => ({
         ...movies,
         results:
           page > 1 ? [...prev.results, ...movies.results] : movies.results
@@ -36,6 +36,7 @@ export const useHomeFetch = () => {
       setLoading(false);
     }
   };
+
   //Initial render and search
   useEffect(() => {
     if (!searchTerm) {
@@ -50,12 +51,14 @@ export const useHomeFetch = () => {
     setState(initialState);
     fetchMovies(1, searchTerm);
   }, [searchTerm]);
+
   //Load more
   useEffect(() => {
     if (!isLoadingMore) return;
     fetchMovies(state.page + 1, searchTerm);
     setIsLoadingMore(false);
   }, [state.page, searchTerm, isLoadingMore]);
+
   //Write to sessionStorage
   useEffect(() => {
     if (!searchTerm) {

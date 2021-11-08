@@ -4,7 +4,7 @@ import HeroImage from './HeroImage';
 import Spinner from './Spinner';
 import SearchBar from './SearchBar';
 import Grid from './Grid';
-import Thumb from './Thumb';
+import MovieThumb from './MovieThumb';
 import Button from './Button';
 //Configs
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config';
@@ -28,29 +28,43 @@ const Home = () => {
           text={state.results[0].overview}
         />
       )}
+
       <SearchBar setSearchTerm={setSearchTerm} />
-      {searchTerm && state.results.length === 0 && (
-        <h1>Not Found</h1>
+
+      {searchTerm && !loading && state.results.length === 0 && (
+        <h1
+          style={{
+            color: 'black',
+            maxWidth: 'var(--maxWidth)',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}
+        >
+          Not Found
+        </h1>
       )}
+
       {state.results.length === 0 || (
         <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
-          {state.results.map((movie) => (
-            <Thumb
+          {state.results.map(movie => (
+            <MovieThumb
               key={movie.id}
-              clickable
+              linkTo={`/movies/${movie.id}`}
               image={
                 movie.poster_path
                   ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
                   : NoImage
               }
-              movieId={movie.id}
+              title={movie.title}
             />
           ))}
         </Grid>
       )}
+
       {state.page < state.total_pages && !loading && (
         <Button text='Load More' callback={() => setIsLoadingMore(true)} />
       )}
+
       {loading && <Spinner />}
     </>
   );

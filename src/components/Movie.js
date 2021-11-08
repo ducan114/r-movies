@@ -1,17 +1,17 @@
 import React from 'react';
 import { useParams } from 'react-router';
-//Configs
+// Configs
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../config';
-//Components
-import Grid from './Grid';
-import Spinner from './Spinner';
+// Components
+import ActorThumb from './ActorThumb';
 import BreadCrumb from './BreadCrumb';
+import Grid from './Grid';
 import MovieInfo from './MovieInfo';
 import MovieInfoBar from './MovieInfoBar';
-import Actor from './Actor';
-//Hooks
+import Spinner from './Spinner';
+// Hooks
 import { useMovieFetch } from '../hooks/useMovieFetch';
-//Images
+// Images
 import NoImage from '../images/no_image.jpg';
 
 const Movie = () => {
@@ -24,7 +24,7 @@ const Movie = () => {
 
   return (
     <>
-      <BreadCrumb movieTitle={movie.original_title} />
+      <BreadCrumb name={movie.original_title} />
       <MovieInfo movie={movie} />
       <MovieInfoBar
         time={movie.runtime}
@@ -32,9 +32,10 @@ const Movie = () => {
         revenue={movie.revenue}
       />
       <Grid header='Actors'>
-        {movie.actors.map((actor) => (
-          <Actor
-            key={actor.credit_id}
+        {movie.actors.map(actor => (
+          <ActorThumb
+            key={actor.id}
+            actorId={actor.id}
             name={actor.name}
             image={
               actor.profile_path

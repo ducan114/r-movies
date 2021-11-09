@@ -1,0 +1,16 @@
+.form{
+    height: 30px;
+    width: 100%;
+    display: flex;
+    margin-left: 10px;
+}
+.form__input{
+    flex: 1;
+    border-radius: 10px;
+    border: 1px solid #1c1c1c;
+    padding: 0px 10px;
+    background-color: #3a3b3c;
+    color: #fff;
+    outline: none;
+    font-size: 14px;
+}

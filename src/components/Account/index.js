@@ -35,7 +35,9 @@ const Account = () => {
           <Profile displayProfile={displayProfile}>
             <div>
               Signed in as{' '}
-              <span className='username'>{currentUser.displayName}</span>
+              <span className='profile-username'>
+                {currentUser.displayName}
+              </span>
             </div>
             <ProfileDivider />
             <SignOutButton onClick={() => logOut().catch(console.log)}>

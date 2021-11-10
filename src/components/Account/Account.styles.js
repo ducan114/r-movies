@@ -40,7 +40,7 @@ export const Profile = styled.div`
     border-right: 5px solid transparent;
   }
 
-  .username {
+  .profile-username {
     font-family: sans-serif;
     font-weight: bolder;
   }

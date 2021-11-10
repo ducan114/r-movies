@@ -13,6 +13,7 @@ import Spinner from './Spinner';
 import { useMovieFetch } from '../hooks/useMovieFetch';
 // Images
 import NoImage from '../images/no_image.jpg';
+import CommentList from './CommentList/CommentList';
 
 const Movie = () => {
   const { movieId } = useParams();
@@ -46,6 +47,7 @@ const Movie = () => {
           />
         ))}
       </Grid>
+      <CommentList />
     </>
   );
 };

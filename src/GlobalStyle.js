@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
             font-size: 2rem;
             font-weight: 600;
             color: var(--white);
+            margin-top: 0;
         }
 
         h3 {

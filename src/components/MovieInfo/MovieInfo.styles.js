@@ -47,7 +47,7 @@ export const Content = styled.div`
 export const Text = styled.div`
   color: var(--white);
   width: 100%;
-  padding: 20px 40px;
+  padding: 44px 40px 20px;
   overflow: hidden;
 
   .rating-directors {

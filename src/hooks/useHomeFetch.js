@@ -13,12 +13,13 @@ const initialState = {
 
 export const useHomeFetch = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [state, setState] = useState(initialState);
+  const [homeState, setHomeState] = useState(initialState);
+  const [searchState, setSearchState] = useState(initialState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const fetchMovies = async (page, searchTerm = '') => {
+  const fetchMovies = async (setState, page, searchTerm = '') => {
     try {
       setLoading(true);
       setError(false);
@@ -42,29 +43,42 @@ export const useHomeFetch = () => {
     if (!searchTerm) {
       const sessionState = isPersistedState('homeState');
       if (sessionState) {
-        setState(sessionState);
+        setHomeState(sessionState);
         setLoading(false);
+        setError(false);
         return;
       }
+
+      setHomeState(initialState);
+      fetchMovies(setHomeState, 1);
     }
 
-    setState(initialState);
-    fetchMovies(1, searchTerm);
+    setSearchState(initialState);
+    fetchMovies(setSearchState, 1, searchTerm);
   }, [searchTerm]);
 
   //Load more
   useEffect(() => {
     if (!isLoadingMore) return;
-    fetchMovies(state.page + 1, searchTerm);
+    if (!searchTerm) fetchMovies(setHomeState, homeState.page + 1);
+    else fetchMovies(setSearchState, searchState.page + 1, searchTerm);
     setIsLoadingMore(false);
-  }, [state.page, searchTerm, isLoadingMore]);
+  }, [homeState.page, searchTerm, isLoadingMore, searchState.page]);
 
   //Write to sessionStorage
   useEffect(() => {
-    if (!searchTerm) {
-      sessionStorage.setItem('homeState', JSON.stringify(state));
+    if (!searchTerm && !error && !loading) {
+      sessionStorage.setItem('homeState', JSON.stringify(homeState));
     }
-  }, [state, searchTerm]);
+  }, [homeState, searchTerm, error, loading]);
 
-  return { state, loading, error, setIsLoadingMore, searchTerm, setSearchTerm };
+  return {
+    homeState,
+    searchState,
+    loading,
+    error,
+    setIsLoadingMore,
+    searchTerm,
+    setSearchTerm
+  };
 };

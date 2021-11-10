@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 // Configs
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../config';
 // Components
-import ActorThumb from './ActorThumb';
+// import ActorThumb from './ActorThumb';
 import BreadCrumb from './BreadCrumb';
 import Grid from './Grid';
 import MovieThumb from './MovieThumb';
@@ -12,6 +12,7 @@ import Spinner from './Spinner';
 import { useActorFetch } from '../hooks/useActorFetch';
 // Images
 import NoImage from '../images/no_image.jpg';
+import ActorInfo from './ActorInfo';
 
 const Actor = () => {
   const { actorId } = useParams();
@@ -20,9 +21,18 @@ const Actor = () => {
 
   if (loading) return <Spinner />;
 
+  if (error)
+    return (
+      <h1 style={{ color: 'red' }}>
+        Something went wrong... Try refreshing the page.
+      </h1>
+    );
+
   return (
     <>
       <BreadCrumb name={actor.name} />
+      <ActorInfo actor={actor} />
+
       <Grid header='Movies'>
         {actor.movies.map(movie => (
           <MovieThumb

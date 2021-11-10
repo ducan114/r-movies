@@ -12,7 +12,7 @@ const MovieThumb = ({ image, linkTo, title }) => {
     <>
       {linkTo ? (
         <Link to={linkTo}>
-          <Image src={image} alt={alt} title={title} />
+          <Image src={image} alt={alt} title={title} linkTo={linkTo} />
         </Link>
       ) : (
         <Image src={image} alt={alt} title={title} />

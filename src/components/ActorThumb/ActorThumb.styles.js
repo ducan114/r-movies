@@ -22,4 +22,8 @@ export const Image = styled.img`
   height: 300px;
   object-fit: cover;
   border-radius: 15px;
+
+  :hover {
+    filter: brightness(80%);
+  }
 `;

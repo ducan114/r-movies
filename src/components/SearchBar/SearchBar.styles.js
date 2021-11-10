@@ -4,48 +4,41 @@ export const Wrapper = styled.div`
   background: var(--darkGrey);
   display: flex;
   align-items: center;
-  height: 100px;
+  height: 80px;
+  --content-height: 55px;
 `;
 
 export const Content = styled.div`
-  position: relative;
   max-width: var(--maxWidth);
   width: 100%;
-  height: 55px;
+  height: var(--content-height);
   background: var(--medGrey);
   margin: 0 auto;
   border-radius: 40px;
   color: var(--white);
-
-  img {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 30px;
-  }
+  display: flex;
+  align-items: center;
 
   input {
-    position: absolute;
-    left: 0;
-    width: 95%;
-    margin: 8px 0;
-    height: 40px;
-    padding-left: 60px;
+    flex: 1 1 0px;
     background: transparent;
-    font-size: var(--fontBig);
+    font-size: var(--fontMed);
     border: none;
     outline: none;
     color: var(--white);
   }
 
-  .fa.fa-times {
-    position: absolute;
-    top: 10px;
-    right: 15px;
+  .material-icons {
+    user-select: none;
     font-size: 2rem;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .fa.fa-times:hover {
-    filter: brightness(70%);
+  .material-icons:hover {
+    cursor: pointer;
   }
 `;

@@ -9,9 +9,7 @@ export const Image = styled.img`
   border-radius: 20px;
   animation: animatedThumb 0.5s;
 
-  :hover {
-    filter: brightness(80%);
-  }
+  ${({ linkTo }) => linkTo && ':hover { filter: brightness(80%); }'}
 
   @keyframes animatedThumb {
     from {

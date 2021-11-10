@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 //Styles
 import { Wrapper, Content } from './SearchBar.styles';
-//Images
-import searchIcon from '../../images/search-icon.svg';
 
 const SearchBar = ({ setSearchTerm }) => {
   const [state, setState] = useState('');
   const initial = useRef(true);
+  const input = useRef();
 
   useEffect(() => {
     if (initial.current) {
@@ -14,9 +13,7 @@ const SearchBar = ({ setSearchTerm }) => {
       return;
     }
 
-    const timer = setTimeout(() => {
-      setSearchTerm(state.trim());
-    }, 500);
+    const timer = setTimeout(() => setSearchTerm(state.trim()), 500);
 
     return () => clearTimeout(timer);
   }, [setSearchTerm, state]);
@@ -24,14 +21,25 @@ const SearchBar = ({ setSearchTerm }) => {
   return (
     <Wrapper>
       <Content>
-        <img src={searchIcon} alt='search-icon' />
+        <span className='material-icons' onClick={() => input.current.focus()}>
+          search
+        </span>
         <input
           type='text'
-          placeholder='Search Movie'
+          placeholder='Search Movies'
           value={state}
+          ref={input}
           onChange={e => setState(e.target.value)}
         />
-        <i className='fa fa-times' onClick={() => setState('')}></i>
+        <span
+          className='material-icons'
+          onClick={() => {
+            setState('');
+            input.current.focus();
+          }}
+        >
+          clear
+        </span>
       </Content>
     </Wrapper>
   );

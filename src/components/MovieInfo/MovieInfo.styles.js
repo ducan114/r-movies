@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../../config';
 
 export const Wrapper = styled.div`
-  background: ${({ backdrop }) =>
-    backdrop ? `url(${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop})` : 'black'};
+  ${({ backdrop }) =>
+    backdrop &&
+    `background-image: url(${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop});`}
+  background-color: rgba(0, 0, 0, 0.1);
+  background-blend-mode: multiply;
   background-size: cover;
   background-position: center;
   padding: 40px 20px;
@@ -28,13 +31,16 @@ export const Content = styled.div`
   border-radius: 20px;
   margin: 0 auto;
 
-  > div {
-    flex: 1 1 0px;
+  .thumb-container {
+    flex: 2 1 0px;
+  }
+
+  .text-container {
+    flex: 3 1 0px;
   }
 
   @media screen and (max-width: 768px) {
     display: block;
-    max-height: none;
   }
 `;
 
@@ -67,5 +73,17 @@ export const Text = styled.div`
     height: 35px;
     font-weight: 800;
     border-radius: 50%;
+  }
+
+  .overview,
+  .director {
+    font-size: 1.15rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .overview,
+    .director {
+      font-size: 1rem;
+    }
   }
 `;

@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
         --darkGrey: #1c1c1c;
         --fontSuperBig: 2.5rem;
         --fontBig: 1.5rem;
-        --fontMed: 1.2rem;
+        --fontMed: 1.25rem;
         --fontSmall: 1rem;
     }
 
@@ -29,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
         }
 
         h3 {
-            font-size: 1.1.rem;
+            font-size: var(--fontMed);
             font-weight: 600;
         }
 
@@ -37,6 +37,10 @@ const GlobalStyle = createGlobalStyle`
             font-size: 1rem;
             color: var(--white);
         }
+    }
+
+    .material-icons {
+        vertical-align: bottom;
     }
 `;
 

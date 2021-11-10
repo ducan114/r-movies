@@ -1,20 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-//Images
+// Components
+import Account from '../Account';
+// Images
 import RMDB from '../../images/react-movie-logo.svg';
-import TMDB from '../../images/tmdb_logo.svg';
-//Styles
-import { Wrapper, Content, RMDBLogo, TMDBLogo } from './Header.styles';
+// Styles
+import { Wrapper, Content, RMDBLogo } from './Header.styles';
 
-const Header = () => (
-  <Wrapper>
-    <Content>
-      <Link to='/'>
-        <RMDBLogo src={RMDB} alt='react-movie-logo' />
-      </Link>
-      <TMDBLogo src={TMDB} alt='tmdb-logo' />
-    </Content>
-  </Wrapper>
-);
+const Header = () => {
+  return (
+    <Wrapper>
+      <Content>
+        <Link to='/'>
+          <RMDBLogo src={RMDB} alt='react-movie-logo' />
+        </Link>
+        <Account />
+      </Content>
+    </Wrapper>
+  );
+};
 
 export default Header;

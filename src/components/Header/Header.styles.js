@@ -8,6 +8,7 @@ export const Wrapper = styled.header`
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
+  column-gap: 0.5rem;
   align-items: center;
   max-width: var(--maxWidth);
   padding: 20px 0;

@@ -16,6 +16,7 @@ export const Wrapper = styled.section`
 
 export const Content = styled.div`
   overflow-y: auto;
+  overflow-x: auto;
   max-height: 100vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

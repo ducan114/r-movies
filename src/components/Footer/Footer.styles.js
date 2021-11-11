@@ -8,27 +8,32 @@ export const Wrapper = styled.footer`
 export const Content = styled.div`
   max-width: var(--maxWidth);
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 `;
 
 export const InspiredBy = styled.div`
   display: flex;
-  gap: 1rem;
+  column-gap: 0.5rem;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
   h1 {
     margin: 0;
+    white-space: nowrap;
   }
 
   img {
-    width: 60px;
+    width: 50px;
+    vertical-align: middle;
   }
 
   @media screen and (max-width: 768px) {
-    flex-direction: column;
-    gap: 0.2rem;
+    row-gap: 0.2rem;
 
     h1 {
       font-size: var(--fontMed);
@@ -42,12 +47,12 @@ export const InspiredBy = styled.div`
 export const PoweredBy = styled.div`
   img {
     display: block;
-    width: 150px;
+    width: 130px;
   }
 
   @media screen and (max-width: 768px) {
     img {
-      width: 120px;
+      width: 100px;
     }
   }
 `;

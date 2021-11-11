@@ -19,15 +19,15 @@ const GlobalStyle = createGlobalStyle`
 
         ::-webkit-scrollbar {
             width: 5px;
+            height: 5px;
         }
 
         ::-webkit-scrollbar-track {
-            width: 100%;
             background-color: #f1f1f1;
         }
 
         ::-webkit-scrollbar-thumb {
-            width: 100%;
+            border-radius: 5px;
             background-color: #888;
         }
 

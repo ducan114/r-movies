@@ -10,7 +10,7 @@ export const Wrapper = styled.button`
   padding: 5px 10px;
   font-size: var(--fontMed);
   font-weight: bold;
-  height: 100%;
+  white-space: nowrap;
 
   :hover {
     color: ${({ hoverColor }) => hoverColor};

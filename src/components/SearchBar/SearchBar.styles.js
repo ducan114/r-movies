@@ -21,6 +21,7 @@ export const Content = styled.div`
 
   input {
     flex: 1 1 0px;
+    min-width: 120px;
     background: transparent;
     font-size: var(--fontMed);
     border: none;

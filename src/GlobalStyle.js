@@ -58,10 +58,13 @@ const GlobalStyle = createGlobalStyle`
         }
 
         #root {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 100vh;
+
+            main {
+                flex: 1 1 0px;
+            }
         }
     }
 

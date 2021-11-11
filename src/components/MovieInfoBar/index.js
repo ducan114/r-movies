@@ -1,7 +1,7 @@
 import React from 'react';
-//Helpers
+// Helpers
 import { calcTime, convertMoney } from '../../helpers';
-//Styles
+// Styles
 import { Wrapper, Content } from './MovieInfoBar.styles';
 const MovieInfoBar = ({ time, budget, revenue }) => {
   return (

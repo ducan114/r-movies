@@ -16,13 +16,13 @@ export const useHomeFetch = () => {
   const [homeState, setHomeState] = useState(initialState);
   const [searchState, setSearchState] = useState(initialState);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const fetchMovies = async (setState, page, searchTerm = '') => {
     try {
       setLoading(true);
-      setError(false);
+      setError();
 
       const movies = await API.fetchMovies(searchTerm, page);
 
@@ -32,7 +32,7 @@ export const useHomeFetch = () => {
           page > 1 ? [...prev.results, ...movies.results] : movies.results
       }));
     } catch (err) {
-      setError(true);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -45,7 +45,7 @@ export const useHomeFetch = () => {
       if (sessionState) {
         setHomeState(sessionState);
         setLoading(false);
-        setError(false);
+        setError();
         return;
       }
 

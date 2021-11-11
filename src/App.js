@@ -1,11 +1,12 @@
 import React from 'react';
 // Components
 import Actor from './components/Actor';
+import Footer from './components/Footer';
 import GlobalStyle from './GlobalStyle';
 import Header from './components/Header';
 import Home from './components/Home';
 import Movie from './components/Movie';
-import NotFound from './components/NotFound';
+import PageNotFound from './components/PageNotFound';
 // Contexts
 import { AuthProvider } from './contexts/AuthContext';
 // Routing
@@ -20,8 +21,9 @@ const App = () => (
         <Route path='/' element={<Home />} />
         <Route path='/movies/:movieId' element={<Movie />} />
         <Route path='/actors/:actorId' element={<Actor />} />
-        <Route path='/*' element={<NotFound />} />
+        <Route path='/*' element={<PageNotFound />} />
       </Routes>
+      <Footer />
     </Router>
   </AuthProvider>
 );

@@ -7,13 +7,13 @@ import { isPersistedState } from '../helpers';
 export const useMovieFetch = movieId => {
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   useEffect(() => {
     const fetchMovie = async () => {
       try {
         setLoading(true);
-        setError(false);
+        setError();
 
         const movie = await API.fetchMovie(movieId);
 
@@ -21,7 +21,7 @@ export const useMovieFetch = movieId => {
           ...movie
         });
       } catch (err) {
-        setError(true);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -31,6 +31,7 @@ export const useMovieFetch = movieId => {
     if (sesstionState) {
       setState(sesstionState);
       setLoading(false);
+      setError();
       return;
     }
 

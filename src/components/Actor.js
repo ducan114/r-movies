@@ -3,7 +3,6 @@ import { useParams } from 'react-router';
 // Configs
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../config';
 // Components
-// import ActorThumb from './ActorThumb';
 import BreadCrumb from './BreadCrumb';
 import Grid from './Grid';
 import MovieThumb from './MovieThumb';
@@ -21,15 +20,10 @@ const Actor = () => {
 
   if (loading) return <Spinner />;
 
-  if (error)
-    return (
-      <h1 style={{ color: 'red' }}>
-        Something went wrong... Try refreshing the page.
-      </h1>
-    );
+  if (error) return <h1 style={{ color: 'red' }}>{error}</h1>;
 
   return (
-    <>
+    <main>
       <BreadCrumb name={actor.name} />
       <ActorInfo actor={actor} />
 
@@ -47,7 +41,7 @@ const Actor = () => {
           />
         ))}
       </Grid>
-    </>
+    </main>
   );
 };
 

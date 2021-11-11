@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-//Styles
+// Styles
 import { Wrapper, Content } from './BreadCrumb.styles';
 
 const BreadCrumb = ({ name }) => (

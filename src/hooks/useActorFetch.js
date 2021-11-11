@@ -7,13 +7,13 @@ import { isPersistedState } from '../helpers';
 export const useActorFetch = actorId => {
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   useEffect(() => {
     const fetchActor = async () => {
       try {
         setLoading(true);
-        setError(false);
+        setError();
 
         const actor = await API.fetchActor(actorId);
 
@@ -21,7 +21,7 @@ export const useActorFetch = actorId => {
           ...actor
         });
       } catch (err) {
-        setError(true);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -31,13 +31,14 @@ export const useActorFetch = actorId => {
     if (sesstionState) {
       setState(sesstionState);
       setLoading(false);
+      setError();
       return;
     }
 
     fetchActor();
   }, [actorId]);
 
-  //Write to sessionState
+  // Write to sessionState.
   useEffect(() => {
     if (loading || error) return;
     sessionStorage.setItem(`actor-${actorId}`, JSON.stringify(state));

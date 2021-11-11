@@ -21,10 +21,10 @@ const Movie = () => {
 
   if (loading) return <Spinner />;
 
-  if (error) return <h1 style={{ color: 'red' }}>Something went wrong...</h1>;
+  if (error) return <h1 style={{ color: 'red' }}>{error}</h1>;
 
   return (
-    <>
+    <main>
       <BreadCrumb name={movie.original_title} />
       <MovieInfo movie={movie} />
       <MovieInfoBar
@@ -48,7 +48,7 @@ const Movie = () => {
         ))}
       </Grid>
       <CommentList />
-    </>
+    </main>
   );
 };
 

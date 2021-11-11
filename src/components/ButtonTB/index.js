@@ -1,6 +1,6 @@
-import { Wrapper } from './ButtonTB.styles';
-
 import React from 'react';
+// Styles
+import { Wrapper } from './ButtonTB.styles';
 
 const ButtonTB = ({ text, callback, color, hoverColor }) => {
   return (

@@ -1,11 +1,11 @@
 import React from 'react';
-//Components
+// Components
 import MovieThumb from '../MovieThumb';
-//Configs
+// Configs
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../config';
-//Images
+// Images
 import NoImage from '../../images/no_image.jpg';
-//Styles
+// Styles
 import { Wrapper, Content, Text } from './MovieInfo.styles';
 
 const MovieInfo = ({ movie }) => (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-//Styles
+// Styles
 import { Wrapper, Image } from './ActorThumb.styles';
 
 const ActorThumb = ({ actorId, name, character, image }) => (

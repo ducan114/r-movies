@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-//Configs
+// Configs
 import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../../config';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.section`
   ${({ backdrop }) =>
     backdrop &&
     `background-image: url(${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop});`}

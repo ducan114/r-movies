@@ -1,16 +1,17 @@
 import React from 'react';
-//Components
+// Components
 import HeroImage from './HeroImage';
 import Spinner from './Spinner';
 import SearchBar from './SearchBar';
 import Grid from './Grid';
 import MovieThumb from './MovieThumb';
+import NotFound from './NotFound';
 import Button from './Button';
-//Configs
+// Configs
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config';
-//Hooks
+// Hooks
 import { useHomeFetch } from '../hooks/useHomeFetch';
-//Images
+// Images
 import NoImage from '../images/no_image.jpg';
 
 const Home = () => {
@@ -24,15 +25,10 @@ const Home = () => {
     setSearchTerm
   } = useHomeFetch();
 
-  if (error)
-    return (
-      <h1 style={{ color: 'red' }}>
-        Something went wrong... Try refreshing the page.
-      </h1>
-    );
+  if (error) return <h1 style={{ color: 'red' }}>{error}</h1>;
 
   return (
-    <>
+    <main>
       {!searchTerm && homeState.results[0] && (
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${homeState.results[0].backdrop_path}`}
@@ -44,21 +40,12 @@ const Home = () => {
       <SearchBar setSearchTerm={setSearchTerm} />
 
       {searchTerm && !loading && searchState.results.length === 0 && (
-        <h1
-          style={{
-            color: 'black',
-            maxWidth: 'var(--maxWidth)',
-            marginLeft: 'auto',
-            marginRight: 'auto'
-          }}
-        >
-          Not Found
-        </h1>
+        <NotFound />
       )}
 
-      <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
-        {!searchTerm &&
-          homeState.results.map(movie => (
+      {(!searchTerm || searchState.results.length !== 0) && (
+        <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
+          {(searchTerm ? searchState : homeState).results.map(movie => (
             <MovieThumb
               key={movie.id}
               linkTo={`/movies/${movie.id}`}
@@ -70,29 +57,17 @@ const Home = () => {
               title={movie.title}
             />
           ))}
-        {searchTerm &&
-          searchState.results.map(movie => (
-            <MovieThumb
-              key={movie.id}
-              linkTo={`/movies/${movie.id}`}
-              image={
-                movie.poster_path
-                  ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
-                  : NoImage
-              }
-              title={movie.title}
-            />
-          ))}
-      </Grid>
+        </Grid>
+      )}
 
-      {(homeState.page < homeState.total_pages ||
-        searchState.page < searchState.total_pages) &&
-        !loading && (
+      {!loading &&
+        (searchTerm ? searchState : homeState).page <
+          (searchTerm ? searchState : homeState).total_pages && (
           <Button text='Load More' callback={() => setIsLoadingMore(true)} />
         )}
 
       {loading && <Spinner />}
-    </>
+    </main>
   );
 };
 

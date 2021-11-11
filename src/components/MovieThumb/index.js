@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-//Helpers
+// Helpers
 import { standardizedAlt } from '../../helpers';
-//Styles
+// Styles
 import { Image } from './MovieThumb.styles';
 
 const MovieThumb = ({ image, linkTo, title }) => {

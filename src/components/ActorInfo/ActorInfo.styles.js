@@ -2,7 +2,7 @@ import styled from 'styled-components';
 // Configs
 import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../../config';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.section`
   padding: 40px 20px;
   background-blend-mode: multiply;
   ${({ backdrop_path }) =>

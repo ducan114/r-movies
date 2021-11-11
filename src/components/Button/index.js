@@ -1,5 +1,5 @@
 import React from 'react';
-//Sytles
+// Sytles
 import { Wrapper } from './Button.styles';
 
 const Button = ({ text, callback }) => (

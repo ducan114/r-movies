@@ -41,7 +41,13 @@ const Account = () => {
                 </span>
               </div>
               <ProfileDivider />
-              <SignOutButton onClick={() => logOut().catch(console.log)}>
+              <SignOutButton
+                onClick={() =>
+                  logOut()
+                    .then(() => setDisplayProfile(false))
+                    .catch(console.log)
+                }
+              >
                 Sign Out
               </SignOutButton>
             </Profile>

@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
+// Components
 import CommentForm from '../CommentForm/CommentForm';
 import CommentItem from '../CommentItem/CommentItem';
+// Contexts
+import { useAuth } from '../../contexts/AuthContext';
+// Styles
 import './CommentList.css';
 
 const CommentList = props => {
@@ -10,9 +14,9 @@ const CommentList = props => {
   };
 
   const [commentList, setCommentList] = useState([]);
-
   const containerRef = useRef();
   const initialRender = useRef(true);
+  const { currentUser, logIn } = useAuth();
 
   // TODO: Create useEffect to fetch comments;
   // useEffect(() => {
@@ -37,7 +41,7 @@ const CommentList = props => {
     setCommentList(newCommentList);
   };
   return (
-    <div className='container' ref={containerRef}>
+    <section className='container' ref={containerRef}>
       <div className='inner-container'>
         <h1>Comments</h1>
         <div className='comments'>
@@ -45,14 +49,22 @@ const CommentList = props => {
             <CommentItem key={item} comment={comment} />
           ))}
           <div className='add__comment'>
-            <div className='user__img'>
-              <img src={user.image} alt='user-avatar' />
-            </div>
-            <CommentForm handleComment={handleComment} />
+            {currentUser ? (
+              <>
+                <div className='user__img'>
+                  <img src={currentUser.photoURL} alt='user-avatar' />
+                </div>
+                <CommentForm handleComment={handleComment} />
+              </>
+            ) : (
+              <div className='sign-in-first' onClick={logIn}>
+                Sign in to comment
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

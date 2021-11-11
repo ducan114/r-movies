@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-//Styles
+// Styles
 import { Wrapper, Content } from './SearchBar.styles';
 
 const SearchBar = ({ setSearchTerm }) => {

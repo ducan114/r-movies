@@ -32,18 +32,20 @@ const Account = () => {
             alt='avatar'
             onClick={() => setDisplayProfile(prev => !prev)}
           />
-          <Profile displayProfile={displayProfile}>
-            <div>
-              Signed in as{' '}
-              <span className='profile-username'>
-                {currentUser.displayName}
-              </span>
-            </div>
-            <ProfileDivider />
-            <SignOutButton onClick={() => logOut().catch(console.log)}>
-              Sign Out
-            </SignOutButton>
-          </Profile>
+          {displayProfile && (
+            <Profile>
+              <div>
+                Signed in as{' '}
+                <span className='profile-username'>
+                  {currentUser.displayName}
+                </span>
+              </div>
+              <ProfileDivider />
+              <SignOutButton onClick={() => logOut().catch(console.log)}>
+                Sign Out
+              </SignOutButton>
+            </Profile>
+          )}
         </Wrapper>
       )}
     </>

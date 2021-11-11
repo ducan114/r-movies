@@ -15,7 +15,7 @@ export const Avatar = styled.img`
 `;
 
 export const Profile = styled.div`
-  display: ${({ displayProfile }) => (displayProfile ? 'flex' : 'none')};
+  display: flex;
   position: absolute;
   right: 0;
   top: calc(100% + 5px);

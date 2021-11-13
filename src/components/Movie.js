@@ -9,6 +9,7 @@ import Grid from './Grid';
 import MovieInfo from './MovieInfo';
 import MovieInfoBar from './MovieInfoBar';
 import Spinner from './Spinner';
+import ErrorMessage from './ErrorMessage';
 // Hooks
 import { useMovieFetch } from '../hooks/useMovieFetch';
 // Images
@@ -19,12 +20,12 @@ const Movie = () => {
   const { movieId } = useParams();
   const { state: movie, loading, error } = useMovieFetch(movieId);
 
-  if (error) return <h1 style={{ color: 'red' }}>{error}</h1>;
-
   return (
     <main>
       {loading ? (
         <Spinner />
+      ) : error ? (
+        <ErrorMessage />
       ) : (
         <>
           <BreadCrumb name={movie.original_title} />
@@ -37,8 +38,8 @@ const Movie = () => {
           <Grid header='Actors'>
             {movie.actors.map(actor => (
               <ActorThumb
-                key={actor.id}
-                actorId={actor.id}
+                key={actor._id}
+                actorId={actor._id}
                 name={actor.name}
                 image={
                   actor.profile_path

@@ -71,6 +71,11 @@ const GlobalStyle = createGlobalStyle`
     .material-icons {
         vertical-align: bottom;
     }
+
+    .tagline {
+        font-size: var(---fontMed);
+        font-style: italic;
+    }
 `;
 
 export default GlobalStyle;

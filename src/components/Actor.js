@@ -7,6 +7,7 @@ import BreadCrumb from './BreadCrumb';
 import Grid from './Grid';
 import MovieThumb from './MovieThumb';
 import Spinner from './Spinner';
+import ErrorMessage from './ErrorMessage';
 // Hooks
 import { useActorFetch } from '../hooks/useActorFetch';
 // Images
@@ -18,12 +19,12 @@ const Actor = () => {
 
   const { state: actor, loading, error } = useActorFetch(actorId);
 
-  if (error) return <h1 style={{ color: 'red' }}>{error}</h1>;
-
   return (
     <main>
       {loading ? (
         <Spinner />
+      ) : error ? (
+        <ErrorMessage message={error} />
       ) : (
         <>
           <BreadCrumb name={actor.name} />
@@ -31,8 +32,8 @@ const Actor = () => {
           <Grid header='Movies'>
             {actor.movies.map(movie => (
               <MovieThumb
-                key={movie.id}
-                linkTo={`/movies/${movie.id}`}
+                key={movie._id}
+                linkTo={`/movies/${movie._id}`}
                 title={movie.title}
                 image={
                   movie.poster_path

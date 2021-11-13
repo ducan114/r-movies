@@ -7,6 +7,7 @@ import Grid from './Grid';
 import MovieThumb from './MovieThumb';
 import NotFound from './NotFound';
 import Button from './Button';
+import ErrorMessage from './ErrorMessage';
 // Configs
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config';
 // Hooks
@@ -25,8 +26,6 @@ const Home = () => {
     setSearchTerm
   } = useHomeFetch();
 
-  if (error) return <h1 style={{ color: 'red' }}>{error}</h1>;
-
   return (
     <main>
       {!searchTerm && homeState.results[0] && (
@@ -39,16 +38,18 @@ const Home = () => {
 
       <SearchBar setSearchTerm={setSearchTerm} />
 
-      {searchTerm && !loading && searchState.results.length === 0 && (
+      {error && <ErrorMessage />}
+
+      {searchTerm && !loading && !error && searchState.results.length === 0 && (
         <NotFound />
       )}
 
-      {(!searchTerm || searchState.results.length !== 0) && (
+      {!error && (!searchTerm || searchState.results.length !== 0) && (
         <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
           {(searchTerm ? searchState : homeState).results.map(movie => (
             <MovieThumb
-              key={movie.id}
-              linkTo={`/movies/${movie.id}`}
+              key={movie._id}
+              linkTo={`/movies/${movie._id}`}
               image={
                 movie.poster_path
                   ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`

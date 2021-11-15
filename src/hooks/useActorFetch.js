@@ -9,24 +9,24 @@ export const useActorFetch = actorId => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
-  const fetchActor = async () => {
-    try {
-      setLoading(true);
-      setError();
-
-      const actor = await API.fetchActor(actorId);
-
-      setState({
-        ...actor
-      });
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchActor = async () => {
+      try {
+        setLoading(true);
+        setError();
+
+        const actor = await API.fetchActor(actorId);
+
+        setState({
+          ...actor
+        });
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     const sessionState = isPersistedState(`actor-${actorId}`);
     if (sessionState) {
       setState(sessionState);

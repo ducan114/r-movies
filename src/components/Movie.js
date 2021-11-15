@@ -33,7 +33,7 @@ const Movie = () => {
       {loading ? (
         <Spinner />
       ) : error ? (
-        <ErrorMessage />
+        <ErrorMessage message={error} />
       ) : (
         <>
           <BreadCrumb name={movie.original_title} />

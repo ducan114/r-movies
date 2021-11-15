@@ -9,25 +9,8 @@ export const useMovieFetch = movieId => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [comments, setComments] = useState([]);
-  const [loadingComments, setLoadingComments] = useState(true);
+  const [loadingComments /*setLoadingComments*/] = useState(false);
   // const [isLoadingMore, setIsLoadingMore] = useState(false);
-
-  const fetchMovie = async () => {
-    try {
-      setLoading(true);
-      setError();
-
-      const movie = await API.fetchMovie(movieId);
-
-      setState({
-        ...movie
-      });
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   // const fetchComments = async () => {
   //   try {
@@ -45,6 +28,23 @@ export const useMovieFetch = movieId => {
   // };
 
   useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        setLoading(true);
+        setError();
+
+        const movie = await API.fetchMovie(movieId);
+
+        setState({
+          ...movie
+        });
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     const sessionState = isPersistedState(`movie-${movieId}`);
 
     if (sessionState) {

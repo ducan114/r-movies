@@ -38,7 +38,7 @@ const Home = () => {
 
       <SearchBar setSearchTerm={setSearchTerm} />
 
-      {error && <ErrorMessage />}
+      {error && <ErrorMessage message={error} />}
 
       {searchTerm && !loading && !error && searchState.results.length === 0 && (
         <NotFound />

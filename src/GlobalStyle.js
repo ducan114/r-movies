@@ -73,7 +73,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .tagline {
-        font-size: var(---fontMed);
+        font-size: var(--fontMed);
         font-style: italic;
     }
 `;

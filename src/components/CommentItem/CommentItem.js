@@ -4,12 +4,12 @@ const CommentItem = ({ comment }) => {
   return (
     <div className='commment'>
       <div className='user__img'>
-        <img src={comment.image} alt='user-avatar' />
+        <img src={comment.photoURL} alt='user-avatar' />
       </div>
       <div className='comment__info'>
-        <div className='username'>{comment.username}</div>
+        <div className='username'>{comment.displayName}</div>
         <div className='comment__content'>{comment.content}</div>
-        <div className='time'>{comment.time}</div>
+        <div className='time'>{comment.createdAt}</div>
       </div>
     </div>
   );

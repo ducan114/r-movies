@@ -8,41 +8,73 @@ export const useMovieFetch = movieId => {
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const [comments, setComments] = useState([]);
+  const [loadingComments, setLoadingComments] = useState(true);
+  // const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  const fetchMovie = async () => {
+    try {
+      setLoading(true);
+      setError();
+
+      const movie = await API.fetchMovie(movieId);
+
+      setState({
+        ...movie
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // const fetchComments = async () => {
+  //   try {
+  //     setLoadingComments(true);
+  //     setError();
+
+  //     const comments = await API.fetchComments(movieId);
+
+  //     setComments({ ...comments });
+  //   } catch (err) {
+  //     setError(err.message);
+  //   } finally {
+  //     setLoadingComments(false);
+  //   }
+  // };
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      try {
-        setLoading(true);
-        setError();
+    const sessionState = isPersistedState(`movie-${movieId}`);
 
-        const movie = await API.fetchMovie(movieId);
-
-        setState({
-          ...movie
-        });
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const sesstionState = isPersistedState(`movie-${movieId}`);
-    if (sesstionState) {
-      setState(sesstionState);
+    if (sessionState) {
+      setState(sessionState);
       setLoading(false);
       setError();
-      return;
-    }
+    } else fetchMovie();
 
-    fetchMovie();
+    // fetchComments();
   }, [movieId]);
 
-  //Write to sessionState
+  // Load more comments.
+  // useEffect(() => {
+  //   if (!isLoadingMore) return
+
+  // }, [])
+
+  // Write to sessionStorage.
   useEffect(() => {
     if (loading || error) return;
     sessionStorage.setItem(`movie-${movieId}`, JSON.stringify(state));
   }, [movieId, state, loading, error]);
 
-  return { state, loading, error };
+  return {
+    state,
+    loading,
+    error,
+    comments,
+    loadingComments,
+    setError,
+    setComments
+  };
 };

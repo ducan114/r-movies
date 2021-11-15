@@ -18,7 +18,15 @@ import CommentList from './CommentList/CommentList';
 
 const Movie = () => {
   const { movieId } = useParams();
-  const { state: movie, loading, error } = useMovieFetch(movieId);
+  const {
+    state: movie,
+    loading,
+    error,
+    comments,
+    loadingComments,
+    setError,
+    setComments
+  } = useMovieFetch(movieId);
 
   return (
     <main>
@@ -50,7 +58,13 @@ const Movie = () => {
               />
             ))}
           </Grid>
-          <CommentList />
+          <CommentList
+            comments={comments}
+            loading={loadingComments}
+            movieId={movieId}
+            setError={setError}
+            setComments={setComments}
+          />
         </>
       )}
     </main>

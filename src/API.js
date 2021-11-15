@@ -8,11 +8,11 @@ const apiSettings = {
     return await (await fetch(endpoint)).json();
   },
   fetchMovie: async movieId => {
-    const endpoint = `${API_URL}movie/${movieId}`;
+    const endpoint = `${API_URL}movie/${movieId}/detail`;
     return await (await fetch(endpoint)).json();
   },
   fetchActor: async actorId => {
-    const endpoint = `${API_URL}actor/${actorId}`;
+    const endpoint = `${API_URL}actor/${actorId}/detail`;
     return await (await fetch(endpoint)).json();
   }
 };

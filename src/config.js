@@ -1,4 +1,4 @@
-const API_URL = 'https://tmdb-to-mydb.herokuapp.com/api/v1/external/';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const SEARCH_BASE_URL = `${API_URL}movie/search`;
 const POPULAR_BASE_URL = `${API_URL}movie/popular`;

@@ -22,7 +22,9 @@ const apiSettings = {
   },
   fetchComments: async movieId => {
     const endpoint = `${API_URL}comment/${movieId}`;
-    return await (await fetch(endpoint)).json();
+    const comments = await (await fetch(endpoint)).json();
+    comments.comments.reverse();
+    return comments;
   },
   createComment: async comment => {
     const endpoint = `${API_URL}comment`;

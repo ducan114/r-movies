@@ -9,7 +9,9 @@ const CommentItem = ({ comment }) => {
       <div className='comment__info'>
         <div className='username'>{comment.displayName}</div>
         <div className='comment__content'>{comment.content}</div>
-        <div className='time'>{comment.createdAt.toString()}</div>
+        <div className='time'>
+          {new Date(comment.createdAt).toLocaleString('en-GB')}
+        </div>
       </div>
     </div>
   );

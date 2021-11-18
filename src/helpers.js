@@ -20,3 +20,8 @@ export const isPersistedState = stateName => {
   const sessionState = sessionStorage.getItem(stateName);
   return JSON.parse(sessionState);
 };
+
+export const isEmptyObject = obj =>
+  obj &&
+  Object.keys(obj).length === 0 &&
+  Object.getPrototypeOf(obj) === Object.prototype;

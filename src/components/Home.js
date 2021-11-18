@@ -14,6 +14,8 @@ import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config';
 import { useHomeFetch } from '../hooks/useHomeFetch';
 // Images
 import NoImage from '../images/no_image.jpg';
+// Helpers
+import { isEmptyObject } from '../helpers';
 
 const Home = () => {
   const {
@@ -23,12 +25,17 @@ const Home = () => {
     error,
     setIsLoadingMore,
     searchTerm,
-    setSearchTerm
+    setSearchTerm,
+    genres,
+    setGenres,
+    availableGenres
   } = useHomeFetch();
+
+  const isEmptyGenres = isEmptyObject(genres);
 
   return (
     <main>
-      {!searchTerm && homeState.results[0] && (
+      {!searchTerm && isEmptyGenres && homeState.results[0] && (
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${homeState.results[0].backdrop_path}`}
           title={homeState.results[0].original_title}
@@ -36,34 +43,46 @@ const Home = () => {
         />
       )}
 
-      <SearchBar setSearchTerm={setSearchTerm} />
+      <SearchBar
+        setSearchTerm={setSearchTerm}
+        setGenres={setGenres}
+        genres={genres}
+        availableGenres={availableGenres}
+      />
 
       {error && <ErrorMessage message={error} />}
 
-      {searchTerm && !loading && !error && searchState.results.length === 0 && (
-        <NotFound />
-      )}
+      {(searchTerm || !isEmptyGenres) &&
+        !loading &&
+        !error &&
+        searchState.results.length === 0 && <NotFound />}
 
-      {!error && (!searchTerm || searchState.results.length !== 0) && (
-        <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
-          {(searchTerm ? searchState : homeState).results.map(movie => (
-            <MovieThumb
-              key={movie._id}
-              linkTo={`/movies/${movie._id}`}
-              image={
-                movie.poster_path
-                  ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
-                  : NoImage
-              }
-              title={movie.title}
-            />
-          ))}
-        </Grid>
-      )}
+      {!error &&
+        ((!searchTerm && isEmptyGenres) ||
+          searchState.results.length !== 0) && (
+          <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
+            {(searchTerm || !isEmptyGenres
+              ? searchState
+              : homeState
+            ).results.map(movie => (
+              <MovieThumb
+                key={movie._id}
+                linkTo={`/movies/${movie._id}`}
+                image={
+                  movie.poster_path
+                    ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                    : NoImage
+                }
+                title={movie.title}
+              />
+            ))}
+          </Grid>
+        )}
 
       {!loading &&
-        (searchTerm ? searchState : homeState).page <
-          (searchTerm ? searchState : homeState).total_pages && (
+        (searchTerm || !isEmptyGenres ? searchState : homeState).page <
+          (searchTerm || !isEmptyGenres ? searchState : homeState)
+            .total_pages && (
           <Button text='Load More' callback={() => setIsLoadingMore(true)} />
         )}
 

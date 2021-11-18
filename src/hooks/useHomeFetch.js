@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 // API
 import API from '../API';
 // Helpers
-import { isPersistedState } from '../helpers';
+import { isPersistedState, isEmptyObject } from '../helpers';
 
 const initialState = {
   page: 0,
@@ -13,18 +13,20 @@ const initialState = {
 
 export const useHomeFetch = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [genres, setGenres] = useState({});
+  const [availableGenres, setAvailableGenres] = useState([]);
   const [homeState, setHomeState] = useState(initialState);
   const [searchState, setSearchState] = useState(initialState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const fetchMovies = async (setState, page, searchTerm = '') => {
+  const fetchMovies = async (setState, page, genres = [], searchTerm = '') => {
     try {
       setLoading(true);
       setError();
 
-      const movies = await API.fetchMovies(searchTerm, page);
+      const movies = await API.fetchMovies(searchTerm, genres, page);
 
       setState(prev => ({
         ...movies,
@@ -38,10 +40,23 @@ export const useHomeFetch = () => {
     }
   };
 
+  const fetchAvailableGenres = async () => {
+    const genres = (await API.fetchGenres()).sort((a, b) =>
+      a.name < b.name ? -1 : a.name === b.name ? 0 : 1
+    );
+    setAvailableGenres(genres);
+  };
+
+  // Fetch available genres on initial render.
+  useEffect(() => {
+    fetchAvailableGenres();
+  }, []);
+
   // Initial render and search.
   useEffect(() => {
-    if (!searchTerm) {
+    if (!searchTerm && isEmptyObject(genres)) {
       const sessionState = isPersistedState('homeState');
+
       if (sessionState) {
         setHomeState(sessionState);
         setLoading(false);
@@ -51,26 +66,34 @@ export const useHomeFetch = () => {
 
       setHomeState(initialState);
       fetchMovies(setHomeState, 1);
+      return;
     }
 
     setSearchState(initialState);
-    fetchMovies(setSearchState, 1, searchTerm);
-  }, [searchTerm]);
+    fetchMovies(setSearchState, 1, Object.keys(genres), searchTerm);
+  }, [searchTerm, genres]);
 
   // Load more.
   useEffect(() => {
     if (!isLoadingMore) return;
-    if (!searchTerm) fetchMovies(setHomeState, homeState.page + 1);
-    else fetchMovies(setSearchState, searchState.page + 1, searchTerm);
+    if (!searchTerm && isEmptyObject(genres))
+      fetchMovies(setHomeState, homeState.page + 1);
+    else
+      fetchMovies(
+        setSearchState,
+        searchState.page + 1,
+        Object.keys(genres),
+        searchTerm
+      );
     setIsLoadingMore(false);
-  }, [homeState.page, searchTerm, isLoadingMore, searchState.page]);
+  }, [homeState.page, searchTerm, isLoadingMore, searchState.page, genres]);
 
   // Write to sessionStorage.
   useEffect(() => {
-    if (!searchTerm && !error && !loading) {
+    if (!searchTerm && isEmptyObject(genres) && !error && !loading) {
       sessionStorage.setItem('homeState', JSON.stringify(homeState));
     }
-  }, [homeState, searchTerm, error, loading]);
+  }, [homeState, searchTerm, genres, error, loading]);
 
   return {
     homeState,
@@ -79,6 +102,9 @@ export const useHomeFetch = () => {
     error,
     setIsLoadingMore,
     searchTerm,
-    setSearchTerm
+    setSearchTerm,
+    genres,
+    setGenres,
+    availableGenres
   };
 };

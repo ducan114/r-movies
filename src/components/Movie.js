@@ -24,7 +24,6 @@ const Movie = () => {
     error,
     comments,
     loadingComments,
-    setError,
     setComments
   } = useMovieFetch(movieId);
 
@@ -62,7 +61,6 @@ const Movie = () => {
             comments={comments}
             loading={loadingComments}
             movieId={movieId}
-            setError={setError}
             setComments={setComments}
           />
         </>

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 // Components
 import CommentForm from '../CommentForm/CommentForm';
 import CommentItem from '../CommentItem/CommentItem';
@@ -7,65 +7,72 @@ import { useAuth } from '../../contexts/AuthContext';
 // Styles
 import './CommentList.css';
 // API
-// import API from '../../API';
+import API from '../../API';
 
-const CommentList = ({ comments, loading, movieId, setError, setComments }) => {
-  const containerRef = useRef();
-  const initialRender = useRef(true);
+const CommentList = ({ comments, loading, movieId, setComments }) => {
   const { currentUser, logIn } = useAuth();
-
-  useEffect(() => {
-    if (initialRender.current) return (initialRender.current = false);
-    containerRef.current.scrollIntoView();
-  }, [comments]);
+  const [error, setError] = useState();
+  const commentsRef = useRef();
 
   const createComment = async content => {
     try {
       const newComment = {
         uid: currentUser.uid,
         content: content,
-        movie_id: movieId,
-        createdAt: new Date()
+        movie_id: movieId
       };
 
-      // await API.createComment(newComment);
+      await API.createComment(newComment);
 
-      setComments([
-        ...comments,
-        {
-          ...newComment,
-          photoURL: currentUser.photoURL,
-          displayName: currentUser.displayName
-        }
-      ]);
+      setComments(await API.fetchComments(movieId));
+      commentsRef.current.scrollTop = commentsRef.current.scrollHeight;
     } catch (err) {
       setError(err.message);
     }
   };
 
+  useEffect(() => {
+    if (!loading)
+      commentsRef.current.scrollTop = commentsRef.current.scrollHeight;
+  }, [loading]);
+
   return (
-    <section className='container' ref={containerRef}>
+    <section className='container'>
       <div className='inner-container'>
         <h1>Comments</h1>
-        <div className='comments'>
+        <div className='comments' ref={commentsRef}>
           {loading ||
-            comments.map((comment, item) => (
-              <CommentItem key={item} comment={comment} />
-            ))}
-          <div className='add__comment'>
-            {currentUser ? (
-              <>
-                <div className='user__img'>
-                  <img src={currentUser.photoURL} alt='user-avatar' />
-                </div>
-                <CommentForm handleComment={createComment} />
-              </>
+            (error ? (
+              <div className='comments-error'>{error}</div>
             ) : (
-              <div className='sign-in-first' onClick={logIn}>
-                Sign in to comment
+              comments.comments.map(({ _id, uid, ...rest }) => (
+                <CommentItem
+                  key={_id}
+                  comment={{
+                    ...rest,
+                    ...comments.profiles[uid],
+                    displayName:
+                      currentUser && currentUser.uid === uid
+                        ? 'You'
+                        : comments.profiles[uid].displayName
+                  }}
+                />
+              ))
+            ))}
+        </div>
+        <div className='add__comment'>
+          {currentUser ? (
+            <>
+              <div className='user__img'>
+                <img src={currentUser.photoURL} alt='user-avatar' />
               </div>
-            )}
-          </div>
+              <CommentForm handleComment={createComment} />
+            </>
+          ) : (
+            <div className='sign-in-first' onClick={logIn}>
+              Sign in to comment
+            </div>
+          )}
         </div>
       </div>
     </section>

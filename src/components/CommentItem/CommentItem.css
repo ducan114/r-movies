@@ -7,11 +7,25 @@
 
 .comment__info {
   margin-left: 10px;
-  background-color: #3a3b3c;
+  background-color: var(--medGrey);
   flex: 1;
   text-align: start;
   border-radius: 10px;
   padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  position: relative;
+}
+
+.comment__info::before {
+  content: '';
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid var(--medGrey);
+  position: absolute;
+  left: -7px;
+  top: 10px;
 }
 
 .username {
@@ -25,5 +39,5 @@
 .time {
   font-size: 12px;
   text-align: end;
-  font-weight: 700;
+  font-style: italic;
 }

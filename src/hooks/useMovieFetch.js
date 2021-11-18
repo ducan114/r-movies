@@ -8,26 +8,22 @@ export const useMovieFetch = movieId => {
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-  const [comments, setComments] = useState([]);
-  const [loadingComments /*setLoadingComments*/] = useState(false);
-  // const [isLoadingMore, setIsLoadingMore] = useState(false);
-
-  // const fetchComments = async () => {
-  //   try {
-  //     setLoadingComments(true);
-  //     setError();
-
-  //     const comments = await API.fetchComments(movieId);
-
-  //     setComments({ ...comments });
-  //   } catch (err) {
-  //     setError(err.message);
-  //   } finally {
-  //     setLoadingComments(false);
-  //   }
-  // };
+  const [comments, setComments] = useState({});
+  const [loadingComments, setLoadingComments] = useState(false);
 
   useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        setLoadingComments(true);
+        setError();
+        setComments(await API.fetchComments(movieId));
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoadingComments(false);
+      }
+    };
+
     const fetchMovie = async () => {
       try {
         setLoading(true);
@@ -53,14 +49,8 @@ export const useMovieFetch = movieId => {
       setError();
     } else fetchMovie();
 
-    // fetchComments();
+    fetchComments();
   }, [movieId]);
-
-  // Load more comments.
-  // useEffect(() => {
-  //   if (!isLoadingMore) return
-
-  // }, [])
 
   // Write to sessionStorage.
   useEffect(() => {

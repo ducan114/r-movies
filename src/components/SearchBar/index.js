@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+// Component
+import GenreFilter from '../GenreFilter';
 // Styles
-import { Wrapper, Content } from './SearchBar.styles';
+import { Wrapper, Content, SearchBox } from './SearchBar.styles';
 
-const SearchBar = ({ setSearchTerm }) => {
+const SearchBar = ({ setSearchTerm, genres, setGenres, availableGenres }) => {
   const [state, setState] = useState('');
   const initial = useRef(true);
   const input = useRef();
@@ -21,25 +23,35 @@ const SearchBar = ({ setSearchTerm }) => {
   return (
     <Wrapper>
       <Content>
-        <span className='material-icons' onClick={() => input.current.focus()}>
-          search
-        </span>
-        <input
-          type='text'
-          placeholder='Search Movies'
-          value={state}
-          ref={input}
-          onChange={e => setState(e.target.value)}
+        <SearchBox>
+          <span
+            className='material-icons'
+            onClick={() => input.current.focus()}
+          >
+            search
+          </span>
+          <input
+            type='text'
+            placeholder='Search Movies'
+            value={state}
+            ref={input}
+            onChange={e => setState(e.target.value)}
+          />
+          <span
+            className='material-icons'
+            onClick={() => {
+              setState('');
+              input.current.focus();
+            }}
+          >
+            clear
+          </span>
+        </SearchBox>
+        <GenreFilter
+          genres={genres}
+          setGenres={setGenres}
+          availableGenres={availableGenres}
         />
-        <span
-          className='material-icons'
-          onClick={() => {
-            setState('');
-            input.current.focus();
-          }}
-        >
-          clear
-        </span>
       </Content>
     </Wrapper>
   );

@@ -6,10 +6,17 @@
 .inner-container {
   max-width: var(--maxWidth);
   margin: 0 auto;
+  color: var(--white);
 }
 
 .comments {
-  color: #fff;
+  max-height: 50vh;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+.comments::-webkit-scrollbar-track {
+  background-color: var(--medGrey);
 }
 
 .add__comment {
@@ -41,4 +48,10 @@
 
 .sign-in-first:hover {
   text-decoration: underline;
+}
+
+.comments-error {
+  color: red;
+  font-size: var(--fontMed);
+  text-align: center;
 }

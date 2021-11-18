@@ -1,10 +1,15 @@
-import { SEARCH_BASE_URL, POPULAR_BASE_URL, API_URL } from './config';
+import { API_URL } from './config';
 
 const apiSettings = {
-  fetchMovies: async (searchTerm, page) => {
-    const endpoint = searchTerm
-      ? `${SEARCH_BASE_URL}?searchTerm=${searchTerm}&page=${page}`
-      : `${POPULAR_BASE_URL}?page=${page}`;
+  fetchMovies: async (searchTerm, genres, page) => {
+    const baseEndpoint = searchTerm
+      ? `${API_URL}movie/search?searchTerm=${searchTerm}&page=${page}`
+      : `${API_URL}movie/popular?page=${page}`;
+    const endpoint = `${baseEndpoint}${
+      genres.length > 0
+        ? `&${genres.map(genre => `genre=${genre}`).join('&')}`
+        : ''
+    }`;
     return await (await fetch(endpoint)).json();
   },
   fetchMovie: async movieId => {
@@ -16,11 +21,11 @@ const apiSettings = {
     return await (await fetch(endpoint)).json();
   },
   fetchComments: async movieId => {
-    const endpoint = `${API_URL}comments/${movieId}`;
+    const endpoint = `${API_URL}comment/${movieId}`;
     return await (await fetch(endpoint)).json();
   },
   createComment: async comment => {
-    const endpoint = `${API_URL}comments`;
+    const endpoint = `${API_URL}comment`;
     await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -28,6 +33,10 @@ const apiSettings = {
       },
       body: JSON.stringify(comment)
     });
+  },
+  fetchGenres: async () => {
+    const endpoint = `${API_URL}genre`;
+    return await (await fetch(endpoint)).json();
   }
 };
 

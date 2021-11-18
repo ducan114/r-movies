@@ -32,11 +32,21 @@ export const Content = styled.div`
   margin: 0 auto;
 
   .thumb-container {
-    flex: 2 1 0px;
+    flex: 3 1 0px;
   }
 
   .text-container {
-    flex: 3 1 0px;
+    flex: 7 1 0px;
+  }
+
+  @media screen and (max-width: 968px) {
+    .thumb-container {
+      flex: 2 1 0px;
+    }
+
+    .text-container {
+      flex: 3 1 0px;
+    }
   }
 
   @media screen and (max-width: 768px) {
@@ -47,20 +57,13 @@ export const Content = styled.div`
 export const Text = styled.div`
   color: var(--white);
   width: 100%;
-  padding: 44px 40px 20px;
+  padding: 20px 40px;
   overflow: hidden;
 
-  .rating-directors {
+  .movie-info-row-flex {
     display: flex;
     justify-content: flex-start;
-  }
-
-  .directors {
-    margin-left: 40px;
-
-    p {
-      margin: 0;
-    }
+    column-gap: 4rem;
   }
 
   .score {
@@ -75,14 +78,12 @@ export const Text = styled.div`
     border-radius: 50%;
   }
 
-  .overview,
-  .director {
+  .overview {
     font-size: 1.15rem;
   }
 
   @media screen and (max-width: 768px) {
-    .overview,
-    .director {
+    .overview {
       font-size: 1rem;
     }
   }

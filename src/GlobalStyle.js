@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
     :root {
         --maxWidth: 1280px;
         --white: #fff;
@@ -45,16 +47,19 @@ const GlobalStyle = createGlobalStyle`
             font-weight: 600;
             color: var(--white);
             margin-top: 0;
+            margin-bottom: 1rem;
         }
 
         h3 {
             font-size: var(--fontMed);
             font-weight: 600;
+            margin: 0.75rem 0;
         }
 
         p {
             font-size: 1rem;
             color: var(--white);
+            margin: 1rem 0;
         }
 
         #root {

@@ -27,7 +27,7 @@ const MovieInfo = ({ movie }) => (
           <div className='tagline'>{movie.tagline}</div>
           <h3>PLOT</h3>
           <p className='overview'>{movie.overview}</p>
-          <div className='rating-directors'>
+          <div className='movie-info-row-flex'>
             <div>
               <h3>RATING</h3>
               <div className='score'>{movie.vote_average}</div>
@@ -35,11 +35,23 @@ const MovieInfo = ({ movie }) => (
             <div className='directors'>
               <h3>DIRECTOR{movie.directors.length > 1 ? 'S' : ''}</h3>
               {movie.directors.map((director, index) => (
-                <p className='director' key={index}>
-                  {director}
-                </p>
+                <div key={index}>{director}</div>
               ))}
             </div>
+          </div>
+          <div className='movie-info-row-flex'>
+            <div>
+              <h3>STATUS</h3>
+              <div>{movie.status}</div>
+            </div>
+            {movie.status === 'Released' && (
+              <div>
+                <h3>RELEASE DATE</h3>
+                <div>
+                  {new Date(movie.release_date).toLocaleDateString('en-GB')}
+                </div>
+              </div>
+            )}
           </div>
         </Text>
       </div>

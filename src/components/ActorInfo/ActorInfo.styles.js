@@ -20,17 +20,15 @@ export const Content = styled.div`
   padding: 15px;
   margin: 0 auto;
   color: white;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  row-gap: 0.75rem;
+  column-gap: 2rem;
 
-export const ContentDivider = styled.div`
-  border-top: 2px dashed white;
-`;
-
-export const FlexContainer = styled.div`
-  display: flex;
+  @media screen and (max-width: 968px) {
+    grid-template-columns: 3fr 7fr;
+    column-gap: 0.75rem;
+  }
 
   @media screen and (max-width: 768px) {
     display: block;
@@ -38,7 +36,7 @@ export const FlexContainer = styled.div`
 `;
 
 export const ProfileImage = styled.div`
-  flex: 1 1 0px;
+  grid-row: span 2;
 
   > img {
     width: 100%;
@@ -58,11 +56,13 @@ export const ProfileImage = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 968px) {
+    grid-row: span 1;
+  }
 `;
 
 export const ProfileInfo = styled.div`
-  flex: 4 1 0px;
-
   > div {
     padding: 10px 20px;
     display: flex;
@@ -84,9 +84,10 @@ export const ProfileInfo = styled.div`
     flex: 1 0 0px;
     display: grid;
     grid-template-columns: auto 1fr;
-    align-items: center;
+    align-items: baseline;
     align-content: center;
-    gap: 0.5rem;
+    row-gap: 1rem;
+    column-gap: 4rem;
   }
 
   @media screen and (max-width: 768px) {
@@ -110,13 +111,16 @@ export const Biography = styled.div`
     text-align: center;
   }
 
-  p {
-    font-size: 1.25rem;
+  p,
+  .biography-unknown {
+    font-size: 1.1rem;
   }
 
-  @media screen and (max-width: 768px) {
-    p {
-      font-size: 1.1rem;
-    }
+  .biography-unknown {
+    text-align: center;
+  }
+
+  @media screen and (max-width: 968px) {
+    grid-column: span 2;
   }
 `;

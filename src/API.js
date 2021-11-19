@@ -14,15 +14,22 @@ const apiSettings = {
   },
   fetchMovie: async movieId => {
     const endpoint = `${API_URL}movie/${movieId}/detail`;
-    return await (await fetch(endpoint)).json();
+    const resp = await fetch(endpoint);
+    console.log(await resp.json());
+    if (resp.status >= 400) throw new Error('Movie Not Found');
+    return await resp.json();
   },
   fetchActor: async actorId => {
     const endpoint = `${API_URL}actor/${actorId}/detail`;
-    return await (await fetch(endpoint)).json();
+    const resp = await fetch(endpoint);
+    if (resp.status >= 400) throw new Error('Actor Not Found');
+    return await resp.json();
   },
   fetchComments: async movieId => {
     const endpoint = `${API_URL}comment/${movieId}`;
-    const comments = await (await fetch(endpoint)).json();
+    const resp = await fetch(endpoint);
+    if (resp.status >= 400) return [];
+    const comments = await resp.json();
     comments.comments.reverse();
     return comments;
   },

@@ -1,7 +1,10 @@
 import React from 'react';
+// Components
+import ErrorMessage from './ErrorMessage';
 
-const PageNotFound = () => {
-  return <h1 style={{ color: 'red' }}>404 Page Not Found</h1>;
-};
-
+const PageNotFound = () => (
+  <main>
+    <ErrorMessage message='404 Page Not Found' />;
+  </main>
+);
 export default PageNotFound;

@@ -15,7 +15,6 @@ const apiSettings = {
   fetchMovie: async movieId => {
     const endpoint = `${API_URL}movie/${movieId}/detail`;
     const resp = await fetch(endpoint);
-    console.log(await resp.json());
     if (resp.status >= 400) throw new Error('Movie Not Found');
     return await resp.json();
   },

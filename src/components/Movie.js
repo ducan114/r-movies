@@ -33,8 +33,6 @@ const Movie = () => {
         <Spinner />
       ) : error ? (
         <ErrorMessage message={error} />
-      ) : !movie ? (
-        <ErrorMessage message='Movie Not Found' />
       ) : (
         <>
           <BreadCrumb name={movie.original_title} />

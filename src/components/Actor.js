@@ -25,8 +25,6 @@ const Actor = () => {
         <Spinner />
       ) : error ? (
         <ErrorMessage message={error} />
-      ) : !actor ? (
-        <ErrorMessage message='Actor Not Found' />
       ) : (
         <>
           <BreadCrumb name={actor.name} />

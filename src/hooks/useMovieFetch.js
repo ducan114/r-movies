@@ -35,7 +35,6 @@ export const useMovieFetch = movieId => {
           ...movie
         });
       } catch (err) {
-        console.log(err);
         setError(err.message);
       } finally {
         setLoading(false);
